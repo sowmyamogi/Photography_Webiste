@@ -1,0 +1,41 @@
+[
+  { "id": 1, "category": "street", "image": "/images/WORKS/Street/street-1.jpg", "title": "Street 1" },
+  { "id": 2, "category": "street", "image": "/images/WORKS/Street/street-2.jpg", "title": "Street 2" },
+  { "id": 3, "category": "street", "image": "/images/WORKS/Street/street-3.jpg", "title": "Street 3" },
+  { "id": 4, "category": "street", "image": "/images/WORKS/Street/street-4.jpg", "title": "Street 4" },
+  { "id": 5, "category": "street", "image": "/images/WORKS/Street/street-5.jpg", "title": "Street 5" },
+  { "id": 5, "category": "street", "image": "/images/WORKS/Street/street-6.jpg", "title": "Street 5" },
+  { "id": 5, "category": "street", "image": "/images/WORKS/Street/street-7.jpg", "title": "Street 5" },
+  { "id": 5, "category": "street", "image": "/images/WORKS/Street/street-8.jpg", "title": "Street 5" },
+  { "id": 5, "category": "street", "image": "/images/WORKS/Street/street-9.jpg", "title": "Street 5" },
+  { "id": 5, "category": "street", "image": "/images/WORKS/Street/street-10.jpg", "title": "Street 5" },
+
+  { "id": 21, "category": "travel", "image": "/images/WORKS/Travel/travel-1.jpg", "title": "Travel 1" },
+  { "id": 22, "category": "travel", "image": "/images/WORKS/Travel/travel-2.jpg", "title": "Travel 2" },
+  { "id": 23, "category": "travel", "image": "/images/WORKS/Travel/travel-3.jpg", "title": "Travel 3" },
+  { "id": 24, "category": "travel", "image": "/images/WORKS/Travel/travel-4.jpg", "title": "Travel 4" },
+  { "id": 25, "category": "travel", "image": "/images/WORKS/Travel/travel-5.jpg", "title": "Travel 5" },
+  { "id": 21, "category": "travel", "image": "/images/WORKS/Travel/travel-6.jpg", "title": "Travel 1" },
+  { "id": 22, "category": "travel", "image": "/images/WORKS/Travel/travel-7.jpg", "title": "Travel 2" },
+  { "id": 23, "category": "travel", "image": "/images/WORKS/Travel/travel-8.jpg", "title": "Travel 3" },
+  { "id": 24, "category": "travel", "image": "/images/WORKS/Travel/travel-9.jpg", "title": "Travel 4" },
+  { "id": 25, "category": "travel", "image": "/images/WORKS/Travel/travel-10.jpg", "title": "Travel 5" },
+  
+  { "id": 41, "category": "portraits", "image": "/images/WORKS/Potrait/portrait-1.jpg", "title": "Portrait 1" },
+  { "id": 42, "category": "portraits", "image": "/images/WORKS/Potrait/portrait-2.jpg", "title": "Portrait 2" },
+  { "id": 43, "category": "portraits", "image": "/images/WORKS/Potrait/portrait-3.jpg", "title": "Portrait 3" },
+  { "id": 44, "category": "portraits", "image": "/images/WORKS/Potrait/portrait-4.jpg", "title": "Portrait 4" },
+  { "id": 45, "category": "portraits", "image": "/images/WORKS/Potrait/portrait-5.jpg", "title": "Portrait 5" },
+  { "id": 41, "category": "portraits", "image": "/images/WORKS/Potrait/portrait-6.jpg", "title": "Portrait 1" },
+  { "id": 42, "category": "portraits", "image": "/images/WORKS/Potrait/portrait-7.jpg", "title": "Portrait 2" },
+  { "id": 43, "category": "portraits", "image": "/images/WORKS/Potrait/portrait-8.jpg", "title": "Portrait 3" },
+  { "id": 44, "category": "portraits", "image": "/images/WORKS/Potrait/portrait-9.jpg", "title": "Portrait 4" },
+  { "id": 45, "category": "portraits", "image": "/images/WORKS/Potrait/portrait-10.jpg", "title": "Portrait 5" },
+
+
+  { "id": 61, "category": "nature", "image": "/images/WORKS/Nature/nature-1.jpg", "title": "Nature 1" },
+  { "id": 62, "category": "nature", "image": "/images/WORKS/Nature/nature-2.jpg", "title": "Nature 2" },
+  
+  { "id": 81, "category": "events", "image": "/images/WORKS/Events/event-1.jpg", "title": "Event 1" },
+  { "id": 82, "category": "events", "image": "/images/WORKS/Events/event-2.jpg", "title": "Event 2" }
+]

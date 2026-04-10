@@ -1,0 +1,105 @@
+---
+import portfolioData from '../../data/portfolio.json';
+
+// 1. Tell Astro what categories exist so it can build the pages
+export function getStaticPaths() {
+  return [
+    { params: { category: 'street' } },
+    { params: { category: 'travel' } },
+    { params: { category: 'portraits' } },
+    { params: { category: 'nature' } }, // <--- Added
+    { params: { category: 'events' } }, // <--- Added
+  ];
+}
+
+// 2. Get the category from the URL (e.g., "street")
+const { category } = Astro.params;
+
+// 3. Filter the JSON to get only photos for this category
+const photos = portfolioData.filter((photo) => photo.category === category);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{category.toUpperCase()} | Brother's Photography</title>
+    <style>
+      body { margin: 0; padding: 0; background: #fff; font-family: 'Times New Roman', serif; }
+
+      /* HEADER */
+      .gallery-header {
+        padding: 40px 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #eee;
+        position: sticky;
+        top: 0;
+        background: white;
+        z-index: 100;
+      }
+
+      h1 { margin: 0; font-size: 1.5rem; letter-spacing: 4px; text-transform: uppercase; }
+
+      .back-btn {
+        text-decoration: none;
+        color: #333;
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        border: 1px solid #ccc;
+        padding: 10px 20px;
+        transition: 0.3s;
+      }
+      .back-btn:hover { background: black; color: white; border-color: black; }
+
+      /* THE 5-COLUMN GRID */
+      .photo-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr); /* 5 Columns Strict */
+        gap: 10px;
+        padding: 20px;
+      }
+
+      /* MOBILE RESPONSIVE */
+      @media (max-width: 1200px) { .photo-grid { grid-template-columns: repeat(3, 1fr); } }
+      @media (max-width: 768px) { .photo-grid { grid-template-columns: repeat(2, 1fr); } }
+
+      /* IMAGE CARD */
+      .photo-item {
+        width: 100%;
+        height: 300px; /* Uniform Height */
+        background: #f4f4f4;
+        overflow: hidden;
+      }
+
+      .photo-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Forces image to fit box perfectly */
+        display: block;
+        transition: transform 0.5s ease;
+      }
+
+      .photo-item:hover img {
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+  <body>
+
+    <header class="gallery-header">
+      <a href="/#portfolio" class="back-btn">&larr; Back to Portfolio</a>
+      <h1>{category} Collection</h1>
+    </header>
+
+    <main class="photo-grid">
+      {photos.map((photo) => (
+        <div class="photo-item">
+          <img src={photo.image} alt={photo.title} loading="lazy" />
+        </div>
+      ))}
+    </main>
+
+  </body>
+</html>

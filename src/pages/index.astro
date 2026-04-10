@@ -1,11 +1,550 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Navbar from '../components/Navbar.astro';
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<html lang="en">
+  <head>
+    
+    <meta charset="utf-8" />
+    <title>Brother's Photography</title>
+    <style>
+      
+      /* --- GLOBAL STYLES --- */
+      body { margin: 0; padding: 0; width: 100%; background-color: #111; color: white; font-family: 'Times New Roman', serif; }
+      
+      /* HERO SECTION linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5))*/
+      .hero {
+        height: 100vh;
+        background-image:  url('/images/WORKS/Travel/travel-5.jpg');
+        background-size: cover; background-position: center;
+        display: flex; align-items: center; justify-content: center;
+        text-align: center; position: relative;
+      }
+      .logo-main { font-size: 3rem; font-weight: bold; letter-spacing: 5px; border-bottom: 1px solid rgb(0, 0, 0); margin-bottom: 20px; color: #000000;}
+      .logo-subtitle { font-size: 1rem; letter-spacing: 4px; margin-bottom: 60px; color: #000000; }
+      
+      /* PORTFOLIO SECTION */
+      .portfolio-section { background: #f0f0f0; color: black; padding: 100px 5%; min-height: 80vh; }
+      .portfolio-header { text-align: center; margin-bottom: 60px; }
+      .section-heading { font-size: 2rem; border-bottom: 1px solid rgb(0, 0, 0); letter-spacing: 5px; margin: 0; }
+
+      /* ALBUM LINKS */
+      .album-container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+      
+      /* These are now <a> tags */
+      /* ... existing album styles ... */
+
+      /* 1. Base Card Style (Updated) */
+      .album-card {
+        text-decoration: none;
+        background-color: #111; /* Fallback color */
+        color: white;
+        width: 280px; 
+        height: 380px;
+        display: flex; 
+        justify-content: center; 
+        align-items: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        
+        /* Prepare for background images */
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* 2. The Dark Overlay (So text is readable) */
+      /* We add a pseudo-element that sits ON TOP of the image but BEHIND the text */
+      .album-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.4); /* 40% darkness. Adjust to 0.6 if text is hard to read */
+        transition: background 0.3s ease;
+        z-index: 1; /* Sits above image */
+      }
+
+      .album-card:hover::before {
+        background: rgba(0, 0, 0, 0.2); /* Brightens up slightly on hover */
+      }
+
+      /* 3. Ensure Text sits on top of the overlay */
+      .album-content {
+        position: relative;
+        z-index: 2; /* Sits above the overlay */
+        text-align: center;
+      }
+
+      /* 4. SPECIFIC BACKGROUND IMAGES */
+      /* Replace these URLs with your favorite shot from each category */
+      
+      .card-street {
+        background-image: url('/images/WORKS/Street/street-1.jpg'); 
+      }
+
+      .card-travel {
+        background-image: url('/images/WORKS/Travel/travel-1.jpg');
+      }
+
+      .card-portraits {
+        background-image: url('/images/WORKS/Potrait/portrait-1.jpg');
+      }
+
+      .card-nature {
+        background-image: url('/images/WORKS/Nature/nature-1.jpg');
+      }
+
+      .card-events {
+        background-image: url('/images/WORKS/Events/event-1.jpg');
+      }
+
+    /* --- ABOUT SECTION STYLES --- */
+    .about-section {
+        background-color: #111; /* Keeps the dark theme */
+        color: white;
+        padding: 100px 5%; /* Generous top/bottom padding */
+      }
+
+      .about-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        display: flex; /* Creates the side-by-side layout */
+        align-items: center;
+        gap: 60px; /* Space between photo and text */
+        flex-wrap: wrap; /* Ensures it stacks nicely on mobile */
+      }
+
+      /* THE IMAGE (Left Side) */
+      .about-image {
+        flex: 1;
+        min-width: 300px;
+      }
+
+      .about-image img {
+        width: 100%;
+        height: auto;
+        border-radius: 2px; /* Slight softening of corners */
+        filter: grayscale(100%); /* Makes the profile photo B&W */
+        transition: filter 0.5s ease;
+        display: block;
+      }
+
+      .about-image img:hover {
+        filter: grayscale(0%); /* Reveals color when you mouse over */
+      }
+
+      /* THE TEXT (Right Side) */
+      .about-text {
+        flex: 1;
+        min-width: 300px;
+        text-align: left;
+      }
+
+      .about-title {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 0.75rem;
+        font-weight: 400;
+        letter-spacing: 6px;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+        color: #ffffff;
+        border-bottom: 1px solid #333; /* Subtle dividing line */
+        display: inline-block;
+        padding-bottom: 10px;
+      }
+
+      .about-bio {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 0.87rem;
+        line-height: 2; /* Makes text easy to read */
+        margin-bottom: 25px;
+        font-weight: 300;
+        color: #ddd; /* Light grey text is easier on eyes than pure white */
+        letter-spacing: 0.5px; /* Subtle spacing for body text*/
+      }
+
+      /* THE SIGNATURE */
+      .signature {
+        font-family: 'Brush Script MT', cursive; /* Handwritten font style */
+        font-size: 1.1rem;
+        margin-top: 30px;
+        opacity: 0.8;
+      }
+
+    /* --- CONTACT SECTION STYLES --- */
+      
+      /* 1. HEADER IMAGE (Full Width) */
+      .contact-header {
+        position: relative;
+        width: 100vw;  /* Force 100% of screen width */
+        height: 70vh;  /* Height of the image section */
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw; /* Pulls it to the left edge */
+        margin-right: -50vw; /* Pulls it to the right edge */
+        
+        /* Make sure you have 'Contact.jpg' or 'contact-bg.jpg' in your public folder */
+        background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('/Contact.jpg') center 30% /cover no-repeat;
+        
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+      }
+
+      .pre-title {
+        font-size: 0.8rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+      }
+
+      .main-title {
+        font-family: 'Times New Roman', serif;
+        font-size: 3.5rem;
+        font-weight: 400;
+        letter-spacing: 5px;
+        margin: 0;
+      }
+
+      /* 2. WHITE FORM BODY (Full Width) */
+      .contact-body {
+        position: relative;
+        width: 100vw;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        
+        background: white;
+        color: black;
+        padding: 80px 15%; /* Side padding keeps content centered */
+        box-sizing: border-box;
+      }
+
+      /* 3. SPLIT LAYOUT (Logo Left / Form Right) */
+      
+      .contact-grid {
+        display: flex;
+        justify-content: space-between;
+        align-items: center; 
+        flex-wrap: wrap;
+        gap: 50px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      /* LEFT SIDE: BRANDING */
+      .contact-branding {
+        flex: 1;
+        min-width: 250px;
+        text-align: left;
+      }
+      .contact-logo-name {
+        font-size: 2.5rem;
+        font-weight: bold;
+        letter-spacing: 5px;
+        border-bottom: 1px solid rgb(0, 0, 0);  
+        display: inline-block; /*for the line to match the text */
+        line-height: 0.8;
+        margin-bottom: 2px;
+        color: black;
+      }
+     
+      .contact-logo-sub {
+        font-size: 0.9rem;
+        letter-spacing: 4px;
+        margin-top: 0;
+        text-transform: uppercase;
+        color: #555;
+      }
+
+      /* RIGHT SIDE: FORM */
+      .form-container {
+        flex: 2;
+        min-width: 300px;
+        
+      }
+      .email-instruction {
+        text-align: left;
+        font-style: italic;
+        margin-bottom: 40px;
+        color: #555;
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+
+      .input-group {
+        margin-bottom: 30px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      label {
+        font-size: 0.85rem;
+        font-style: italic;
+        color: #888;
+        margin-bottom: 0px;
+      }
+
+      /* "Line Only" Input Style */
+      input, textarea {
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid #ccc; /* Thin grey line */
+        padding: 5px 0;
+        font-family: 'Times New Roman', serif;
+        font-size: 1rem;
+        outline: none;
+        background: transparent;
+      }
+
+      input:focus, textarea:focus {
+        border-bottom: 1px solid black; /* Darkens on click */
+      }
+
+      .submit-btn {
+        background: #f4f4f4;
+        border: none;
+        padding: 15px 40px;
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: 0.3s;
+      }
+
+      .submit-btn:hover {
+        background: #ddd;
+      }  
+
+
+    /* --- FOOTER STYLES --- */
+    .site-footer {
+        background-color: #000000d2;
+        color: #ffffff;
+        padding: 100px 5% 40px 5%; /* Generous top padding to match editorial look */
+        text-align: center;
+        border-top: 1px solid #f0f0f0;
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+      }
+
+      /* FOOTER LOGO (Matches Contact Page) */
+      .footer-logo {
+        text-align: center;
+      }
+
+      .footer-logo .logo-name {
+        font-family: 'Times New Roman', serif;
+        font-size: 2rem;
+        font-weight: bold;
+        border-bottom: 1px solid #f0f0f0;  
+        display: inline-block; /*for the line to match the text */
+        line-height: 0.8;
+        letter-spacing: 4px;
+        margin-bottom: 5px;
+        
+      }
+
+      .footer-logo .logo-sub {
+        font-size: 0.6rem;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: #9a9999;
+      }
+
+      /* INSTAGRAM LINK (Stylized) */
+      .instagram-follow {
+        font-family: 'Brush Script MT', cursive; /* Handwritten look from screenshot */
+        font-size: 1.4rem;
+        color: #9a9999;
+        text-decoration: none;
+        transition: opacity 0.3s;
+        margin-top: 20px;
+      }
+
+      .instagram-follow:hover {
+        opacity: 0.6;
+      }
+
+      /* BOTTOM COPYRIGHT BAR */
+      .footer-bottom {
+        margin-top: 80px;
+        border-top: 1px solid #eee;
+        
+        padding-top: 20px;
+      }
+
+      .footer-bottom p {
+        font-size: 0.55rem; /* Very small and elegant like reference */
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #999;
+      }  
+    </style>
+  </head>
+  <body>
+    <Navbar />
+
+    <div class="hero">
+      <div class="hero-text">
+        <div class="logo-main">BHANU<br/>SIMHA</div>
+        <div class="logo-subtitle">PHOTOGRAPHY</div>
+      </div>
+    </div>
+
+    <section id="portfolio" class="portfolio-section">
+      <div class="portfolio-header">
+        <h2 class="section-heading">TIMELESS FRAMES...</h2>
+        <p style="font-style:italic; color:#666; margin-top:10px;">“Life is a collection of fleeting moments. To me, every photograph holds a story waiting to be told. Here is a glimpse and I invite you to explore my work.“</p>
+      </div>
+
+      <div class="album-container">
+        
+        <a href="/portfolio/street" class="album-card card-street">
+          <div class="album-content">
+            <span class="album-num">01</span>*
+            <h3>STREET</h3>
+            <p class="view-text">Gallery &rarr;</p>
+          </div>
+        </a>
+
+        <a href="/portfolio/travel" class="album-card card-travel">
+          <div class="album-content">
+            <span class="album-num">02</span>
+            <h3>TRAVEL</h3>
+            <p class="view-text">Gallery &rarr;</p>
+          </div>
+        </a>
+
+        <a href="/portfolio/portraits" class="album-card card-portraits">
+          <div class="album-content">
+            <span class="album-num">03</span>
+            <h3>PORTRAITS</h3>
+            <p class="view-text">Gallery &rarr;</p>
+          </div>
+        </a>
+
+        {/*<a href="/portfolio/nature" class="album-card card-nature">
+          <div class="album-content">
+            <span class="album-num">04</span>
+            <h3>NATURE</h3>
+            <p class="view-text">Open Gallery &rarr;</p>
+          </div>
+        </a>
+
+        <a href="/portfolio/events" class="album-card card-events">
+          <div class="album-content">
+            <span class="album-num">05</span>
+            <h3>EVENTS</h3>
+            <p class="view-text">Open Gallery &rarr;</p>
+          </div> 
+        </a>*/}
+
+      </div>
+    </section>
+     
+    <section id="about" class="about-section">
+      <div class="about-container">
+        
+        <div class="about-image">
+          <img src="/Bro.jpg" alt="Bhanu Simha" />
+        </div>
+
+        <div class="about-text">
+          <h2 class="about-title">THE PHOTOGRAPHER</h2>
+          
+          <p class="about-bio">
+            Hi, I’m <strong>Bhanu Simha</strong>.
+          </p>
+          <p class="about-bio">
+            I believe photography is more than just capturing a smiling face—it is about preserving a feeling. With a background in fine art and a passion for storytelling, I strive to create images that are timeless, emotive, and honest.
+          </p>
+          <p class="about-bio">
+            Whether it is an intimate wedding or a personal portrait, my goal is to let your story unfold naturally while I quietly capture the moments that matter most.
+          </p>
+          
+          <div class="signature">Bhanu Simha</div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+      
+      <div class="contact-header">
+        <span class="pre-title">CONTACT</span>
+        <h2 class="main-title">GET IN TOUCH</h2>
+      </div>
+
+      <div class="contact-body">
+        <div class="contact-grid">
+          
+          <div class="contact-branding">
+            <div class="contact-logo-name">BHANU<br/>SIMHA</div>
+            <div class="contact-logo-sub">PHOTOGRAPHY</div>
+          </div>
+
+          <div class="form-container">
+            
+            <p class="email-instruction">
+              Send me an email: <strong>bhanusimhaprof@gmail.com</strong> or fill out the form below!
+            </p>
+            <form>
+              <div class="input-group">
+                <label>name</label>
+                <input type="text" required />
+              </div>
+              
+              <div class="input-group">
+                <label>email</label>
+                <input type="email" required />
+              </div>
+              
+              <div class="input-group">
+                <label>wedding date and location</label>
+                <input type="text" />
+              </div>
+              
+              <div class="input-group">
+                <label>message</label>
+                <textarea rows="1"></textarea>
+              </div>
+              
+              <button type="submit" class="submit-btn">SUBMIT</button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    </body>
+    <footer class="site-footer">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <div class="logo-name">BHANU<br/>SIMHA</div>
+          <div class="logo-sub">PHOTOGRAPHY</div>
+        </div>
+
+        <a href="https://www.instagram.com/_simha_reddy_bhanu_/" target="_blank" class="instagram-follow">
+          follow along @bhanusimha
+        </a>
+      </div>
+
+      <div class="footer-bottom">
+        <p>PHOTOGRAPHY BY BHANU SIMHA + DESIGN BY YOUR SOWMYA + POWERED BY ASTRO</p>
+      </div>
+    </footer>
+</html>

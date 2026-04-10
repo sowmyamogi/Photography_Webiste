@@ -1,0 +1,180 @@
+---
+// This is the frontmatter. We don't need logic here yet.
+---
+
+<div class="nav-wrapper">
+  <button id="menu-open" class="menu-trigger" aria-label="Open Menu">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </button>
+
+  <div id="side-menu" class="sidebar">
+    <button id="menu-close" class="close-btn">&times;</button>
+    
+    <ul class="nav-links">
+      <li><a href="/">HOME</a></li>
+      <li><a href="#about">ABOUT</a></li>
+      <li><a href="#portfolio">PORTFOLIO</a></li>
+      {/* <li><a href="#information">INFORMATION</a></li>*/}
+      <li><a href="#contact">CONTACT</a></li>
+    </ul>
+
+    <div class="social-footer">
+      <a href="https://www.instagram.com/_simha_reddy_bhanu_/" target="_blank" class="social-link" aria-label="Instagram">
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <defs>
+            <linearGradient id="instagram-gradient" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#f09433" />
+              <stop offset="25%" style="stop-color:#e6683c" />
+              <stop offset="50%" style="stop-color:#dc2743" />
+              <stop offset="75%" style="stop-color:#cc2366" />
+              <stop offset="100%" style="stop-color:#bc1888" />
+            </linearGradient>
+          </defs>
+          
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#instagram-gradient)"></rect>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke="url(#instagram-gradient)"></path>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="url(#instagram-gradient)"></line>
+        </svg>
+      </a> 
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Menu Button Styling */
+  .menu-trigger {
+    position: fixed;
+    top: 40px;
+    right: 40px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1000; /* Ensure it stays above everything */
+    padding: 10px;
+
+    mix-blend-mode: difference;
+  }
+
+  .bar {
+    width: 25px;
+    height: 1.5px;
+  
+    background-color: white;/* Try a gold or grey color to see if it appears */
+
+    margin: 6px 0;
+    transition: 0.3s;
+  }
+
+  /* Optional: Make the middle bar slightly shorter for a stylized look 
+  .bar:nth-child(2) {
+    width: 18px; 
+    align-self: flex-end; /* Aligns the shorter middle bar to the right 
+  } */
+
+  /* Sidebar Styling */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Fully hidden off-screen */
+    width: 400px;
+    max-width: 80%;
+    height: 100vh;
+    background-color: white;
+    z-index: 2000;
+    transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+  }
+
+  /* When the 'active' class is added via JS, it slides in */
+  .sidebar.active {
+    right: 0;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-size: 2.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333;
+  }
+
+  .nav-links {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+  }
+
+  .nav-links li {
+    margin: 20px 0;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: #111;
+    font-size: 1.2rem;
+    letter-spacing: 4px;
+    font-weight: 300;
+    transition: 0.3s;
+  }
+
+  .nav-links a:hover {
+    opacity: 0.5;
+  }
+
+  /* Existing style */
+  .social-footer {
+    margin-top: 50px;
+    color: #999;
+    /* Add flexbox to center the icon perfectly if it isn't already */
+    display: flex;
+    justify-content: center;
+  }
+
+  /* NEW STYLES FOR THE ICON */
+  .social-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+    /* Removed 'color' because the SVG now handles its own color */
+  }
+
+  .social-link:hover {
+    transform: scale(1.1); /* Little pop effect */
+    opacity: 0.8; /* Slight fade on hover */
+  }
+</style>
+
+<script>
+  // This function runs on the client side (browser)
+  const initMenu = () => {
+    const openBtn = document.getElementById('menu-open');
+    const closeBtn = document.getElementById('menu-close');
+    const menu = document.getElementById('side-menu');
+
+    if (openBtn && closeBtn && menu) {
+      openBtn.addEventListener('click', () => {
+        menu.classList.add('active');
+      });
+
+      closeBtn.addEventListener('click', () => {
+        menu.classList.remove('active');
+      });
+    }
+  };
+
+  // Run on initial load
+  initMenu();
+
+  // Run every time the page completes a navigation (important for Astro)
+  document.addEventListener('astro:page-load', initMenu);
+</script>
